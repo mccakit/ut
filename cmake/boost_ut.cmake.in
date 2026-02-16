@@ -1,0 +1,6 @@
+@PACKAGE_INIT@
+add_library(ut_module STATIC IMPORTED)
+set_target_properties(ut_module PROPERTIES
+  IMPORTED_LOCATION "@CMAKE_INSTALL_PREFIX@/lib/ut_module.a"
+  INTERFACE_COMPILE_OPTIONS "-fprebuilt-module-path=@CMAKE_INSTALL_PREFIX@/lib/cxx/bmi"
+)

@@ -98,6 +98,11 @@ if(NOT BOOST_UT_DISABLE_MODULE)
         FILES ${CMAKE_CURRENT_BINARY_DIR}/boost_ut.pc
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
     )
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/boost_ut.cmake.in boost_ut.pc @ONLY)
+    install(
+        FILES ${CMAKE_CURRENT_BINARY_DIR}/boost_ut.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
+    )
 else()
     install(
     FILES include/boost/ut.hpp include/boost/ut.cppm
@@ -115,18 +120,19 @@ else()
     NAMESPACE Boost::
     DESTINATION lib/cmake/ut
     )
+    write_basic_package_version_file(
+      "utConfigVersion.cmake"
+      VERSION ${PROJECT_VERSION}
+      COMPATIBILITY SameMajorVersion
+      ARCH_INDEPENDENT
+    )
+    install(
+      FILES "${PROJECT_BINARY_DIR}/utConfigVersion.cmake"
+      DESTINATION lib/cmake/ut
+    )
+
 endif()
 
-write_basic_package_version_file(
-  "utConfigVersion.cmake"
-  VERSION ${PROJECT_VERSION}
-  COMPATIBILITY SameMajorVersion
-  ARCH_INDEPENDENT
-)
-install(
-  FILES "${PROJECT_BINARY_DIR}/utConfigVersion.cmake"
-  DESTINATION lib/cmake/ut
-)
 
 if(EMSCRIPTEN)
   set(CMAKE_EXECUTABLE_SUFFIX ".js")
