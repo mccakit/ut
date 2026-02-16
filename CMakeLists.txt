@@ -40,6 +40,7 @@ option(BOOST_UT_USE_WARNINGS_AS_ERORS "Build the tests" ${PROJECT_IS_TOP_LEVEL})
 add_library(ut INTERFACE)
 if(NOT BOOST_UT_DISABLE_MODULE)
     add_library(ut_module)
+    include(GNUInstallDirs)
     install(
         TARGETS ut_module
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
