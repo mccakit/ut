@@ -4,5 +4,5 @@ libdir=${prefix}/lib
 Name: boost_ut
 Version: @PROJECT_VERSION@
 Description: @PROJECT_DESCRIPTION@
-Libs: -L${libdir} -lboost_ut
+Libs: -L${libdir} -lut_module
 Cflags: -fprebuilt-module-path=${libdir}/cxx/bmi
