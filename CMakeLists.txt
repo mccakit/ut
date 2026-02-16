@@ -46,6 +46,7 @@ install(
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
+)
 endif()
 target_include_directories(ut INTERFACE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
 target_compile_features(ut INTERFACE cxx_std_20)
