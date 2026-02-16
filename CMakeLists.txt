@@ -40,6 +40,12 @@ option(BOOST_UT_USE_WARNINGS_AS_ERORS "Build the tests" ${PROJECT_IS_TOP_LEVEL})
 add_library(ut INTERFACE)
 if(NOT BOOST_UT_DISABLE_MODULE)
 add_library(ut_module)
+install(
+    TARGETS ut_module
+    EXPORT boost_ut_targets
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
 endif()
 target_include_directories(ut INTERFACE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
 target_compile_features(ut INTERFACE cxx_std_20)
