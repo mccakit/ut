@@ -98,7 +98,7 @@ if(NOT BOOST_UT_DISABLE_MODULE)
         FILES ${CMAKE_CURRENT_BINARY_DIR}/boost_ut.pc
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
     )
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/boost_ut.cmake.in boost_ut.pc @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/boost_ut.cmake.in boost_ut.cmake @ONLY)
     install(
         FILES ${CMAKE_CURRENT_BINARY_DIR}/boost_ut.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
