@@ -40,17 +40,6 @@ option(BOOST_UT_USE_WARNINGS_AS_ERORS "Build the tests" ${PROJECT_IS_TOP_LEVEL})
 add_library(ut INTERFACE)
 if(NOT BOOST_UT_DISABLE_MODULE)
     add_library(ut_module)
-    include(GNUInstallDirs)
-    install(
-        TARGETS ut_module
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        CXX_MODULES_BMI DESTINATION ${CMAKE_INSTALL_LIBDIR}/cxx/bmi
-    )
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/boost_ut.pc.in boost_ut.pc @ONLY)
-    install(
-        FILES ${CMAKE_CURRENT_BINARY_DIR}/boost_ut.pc
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
-    )
 endif()
 target_include_directories(ut INTERFACE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
 target_compile_features(ut INTERFACE cxx_std_20)
@@ -98,22 +87,35 @@ endif()
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-install(
-  FILES include/boost/ut.hpp include/boost/ut.cppm
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/boost
-)
+if(NOT BOOST_UT_DISABLE_MODULE)
+    install(
+        TARGETS ut_module
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        CXX_MODULES_BMI DESTINATION ${CMAKE_INSTALL_LIBDIR}/cxx/bmi
+    )
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/boost_ut.pc.in boost_ut.pc @ONLY)
+    install(
+        FILES ${CMAKE_CURRENT_BINARY_DIR}/boost_ut.pc
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
+    )
+else()
+    install(
+    FILES include/boost/ut.hpp include/boost/ut.cppm
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/boost
+    )
 
-install(
-  TARGETS ut
-  EXPORT ut_Targets
-  INCLUDES DESTINATION include
-)
-install(
-  EXPORT ut_Targets
-  FILE utConfig.cmake
-  NAMESPACE Boost::
-  DESTINATION lib/cmake/ut
-)
+    install(
+    TARGETS ut
+    EXPORT ut_Targets
+    INCLUDES DESTINATION include
+    )
+    install(
+    EXPORT ut_Targets
+    FILE utConfig.cmake
+    NAMESPACE Boost::
+    DESTINATION lib/cmake/ut
+    )
+endif()
 
 write_basic_package_version_file(
   "utConfigVersion.cmake"
