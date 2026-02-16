@@ -1,6 +1,8 @@
-@PACKAGE_INIT@
-add_library(boost_ut STATIC IMPORTED)
-set_target_properties(boost_ut PROPERTIES
-  IMPORTED_LOCATION "@CMAKE_INSTALL_PREFIX@/lib/libmath.a"
-  INTERFACE_COMPILE_OPTIONS "-fprebuilt-module-path=@CMAKE_INSTALL_PREFIX@/lib/cxx/bmi"
-)
+prefix=@CMAKE_INSTALL_PREFIX@
+libdir=${prefix}/lib
+
+Name: boost_ut
+Version: @PROJECT_VERSION@
+Description: @PROJECT_DESCRIPTION@
+Libs: -L${libdir} -lboost_ut
+Cflags: -fprebuilt-module-path=${libdir}/cxx/bmi
